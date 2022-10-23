@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import MongoDBSession from "connect-mongodb-session";
 const MongoDBStore = MongoDBSession(session);
+import * as dotenv from "dotenv";
+dotenv.config();
 
 import csrf from "csurf";
 import flash from "connect-flash";
@@ -32,8 +34,8 @@ import morgan from "morgan";
 // import { CartItem } from "./models/cart-item.js";
 // import { Order } from "./models/order.js";
 // import { OrderItem } from "./models/order-item.js";
-
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.3mc22.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
+// const MONGODB_URI = process.env.MONGO_DATABASE;
 
 const app = express();
 const store = new MongoDBStore({
@@ -191,6 +193,7 @@ mongoose
   .connect(MONGODB_URI)
   .then((result) => {
     app.listen(process.env.PORT || 3000);
+    console.log("listening");
   })
   .catch((err) => {
     console.log(err);
